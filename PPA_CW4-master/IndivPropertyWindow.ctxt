@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=IndivPropertyWindow
+comment0.text=\r\n\ Displays\ the\ information\ of\ a\ selected\ property\ in\ the\ chosen\ borough\ \r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\r\n\ @version\ 29.3.19\r\n
+comment1.params=stage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=
+comment2.target=void\ createBottomPane()
+comment2.text=\r\n\ create\ the\ pane\ with\ the\ buttons\ that\ allow\ you\ to\ view\ next\ and\ previous\ properties\ \r\n
+comment3.params=getNextPanel
+comment3.target=void\ changePanel(boolean)
+comment3.text=\r\n\ view\ either\ the\ next\ or\ the\ previous\ property\ in\ the\ borough.\r\n\ @param\ getNextPanel\ true\ to\ view\ next\ property,\ false\ to\ view\ the\ previous\ \r\n
+comment4.params=boroughListings\ currentListing
+comment4.target=void\ loadProperties(java.util.List,\ AirbnbListing)
+comment4.text=\r\n\ \ load\ in\ which\ property\ the\ user\ wants\ to\ view\ and\ loads\ in\ the\ list\ of\ properties\ in\ the\ chosen\ borough\ \r\n\ \ initialises\ the\ individual\ property\ engine\ here\r\n\ \ @param\ List<AirbnbListing>\ properties\ in\ the\ chosen\ borough\r\n\ \ @param\ AirbnbListing\ the\ property\ you\ want\ to\ view\ individually\ \r\n
+comment5.params=
+comment5.target=javafx.scene.control.MenuBar\ makeMenuBar()
+comment5.text=\r\n\ makes\ the\ menu\ bar\ containing\ the\ menu\ 'Options'\ which\ gives\ the\ option\ to\ set\ the\ current\ property\ as\ a\ favourite\r\n
+comment6.params=event
+comment6.target=void\ handle(javafx.event.ActionEvent)
+comment7.params=
+comment7.target=javafx.scene.layout.AnchorPane\ setContent()
+comment7.text=\r\n\ sets\ the\ property's\ information\ into\ the\ anchor\ pane\ \r\n\ @AnchorPane\ contains\ the\ current\ property's\ information\r\n
+comment8.params=input
+comment8.target=void\ setInput(Input)
+comment8.text=\r\n\ intialises\ the\ user's\ username\ in\ the\ engine\r\n\ @param\ Username\ user's\ username\r\n
+numComments=9

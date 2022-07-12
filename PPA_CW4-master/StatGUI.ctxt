@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=StatGUI
+comment0.text=\r\n\ StatGUI\ starts\ the\ application\ of\ the\ statistics\ GUI.\ \r\n\ StatGUI\ initiates\ stat\ controller\ class\ and\ stats.\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\r\n\ @version\ 29-03-2019\r\n
+comment1.params=statStage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=newInput
+comment2.target=void\ setInput(Input)
+numComments=3

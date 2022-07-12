@@ -1,0 +1,199 @@
+.pane, #propBox, #tile, #propertyPane, #menuBar{
+    -fx-border-width: 0.7px;
+    -fx-border-color: #fe8d14;
+    -fx-background-color: #ffffff;
+    -fx-font-family:'Arial Black', Gadget, sans-serif;
+}
+#accPane{
+    -fx-border-width: 4px;
+    -fx-border-color: #E99A46;
+    -fx-background-color: #ffffff;
+    -fx-font-family:'Arial Black', Gadget, sans-serif;
+}
+#logPane{
+    -fx-border-width: 10px;
+    -fx-border-color: #E99A46;
+    -fx-background-color: #ffffff;
+    -fx-font-family:'Arial Black', Gadget, sans-serif;
+}
+#page{
+    -fx-border-width: 0.7px;
+    -fx-border-color: #fe8d14;
+    -fx-background-color: #E99A46;
+    -fx-font-family:'Arial Black', Gadget, sans-serif;
+}
+#sep{
+    -fx-background-color: #b1620e;
+}
+#welcome{
+    -fx-text-fill: #E99A46;
+    -fx-font-size:30px;
+}
+
+
+#lineChart, #sbc, #optionMenu{
+    -fx-text-fill: #fe8d14;     
+    -fx-border-width: 0.7px;
+    -fx-border-color: #fe8d14;
+    -fx-background-color: #ffffff;
+    -fx-font-family:'Arial Black', Gadget, sans-serif;
+}
+
+#hostName, #price, #name, #minNights, #numberOfReviews {
+    -fx-align-content:center;
+}
+
+
+#forwardButton, #backButton, #searchBtn, #minBox, #maxBox, #inPicker, #outPicker, #textbox, #filters, #search,  #fromBox, #toBox, #accountBtn{
+  -fx-text-fill: #fe8d14;
+  -fx-background-color: #FFFFFF;
+  -fx-border-color: #fe8d14;
+  -fx-border-size: 8px;
+  -fx-text-align: center;
+  -fx-font-size: 12px;
+  -fx-cursor: pointer;
+  -fx-border-radius: 8px;
+  -fx-border-width: 1 1 1 1;
+}
+#forwardButton:hover, #backButton:hover, #searchBtn:hover,  #search:hover,#accountBtn:hover{
+  -fx-text-fill: #b1620e;
+  -fx-border-color: #b1620e;
+}
+#keyLbl{
+    -fx-align-content:center;
+}
+#propName, #Maintitle{
+  -fx-font-size: 18px;
+}
+#hostInfo, #title{
+  -fx-font-size: 14px;
+}
+#propPrice{
+   -fx-font-size: 22px;
+   -fx-align: right;
+}
+
+#forwardButton, #backButton, #searchBtn, #minBox, #maxBox, #inPicker, #outPicker{
+  -fx-text-fill: #fe8d14;
+  -fx-background-color: #FFFFFF;
+  -fx-border-color: #fe8d14;
+  -fx-border-size: 8px;
+  -fx-text-align: center;
+  -fx-font-size: 12px;
+  -fx-cursor: pointer;
+  -fx-border-radius: 8px;
+  -fx-border-width: 1 1 1 1;
+}
+#forwardButton:hover, #backButton:hover, #searchBtn:hover{
+  -fx-text-fill: #b1620e;
+  -fx-border-color: #b1620e;
+}
+#keyLbl{
+    -fx-align-content:center;
+}
+
+#label0, #label1, #label2,#label3, #label4,#label5, #label6,#label7 #keyBox{
+    -fx-border-color: black;
+    -fx-margin-left:50px; 
+    -fx-margin-top: 50px; 
+    -fx-margin-right: 500px; 
+    -fx-margin-bottom: 50px;
+}
+
+#label0{
+    -fx-background-color: #feeddb;
+}
+#label1{
+    -fx-background-color: #fec689;
+}
+#label2{
+    -fx-background-color: #feaf5a;
+}
+#label3{
+    -fx-background-color: #fe982b;
+}
+#label4{
+    -fx-background-color:#fe8d14;
+}
+#label5{
+    -fx-background-color: #e47e12
+;
+}
+#label6{
+    -fx-background-color: #b1620e;
+}
+#label7{
+    -fx-background-color: #6A3A08;
+}
+#typeZero, #typeOne, #typeTwo, #typeThree, #typeFour, #typeFive, #typeSix, #typeSeven{
+    -fx-position: absolute;
+    -fx-width: 100px;
+    -fx-height: 150px; 
+    -fx-margin-right: 20px; 
+    -fx-margin-left: 20px;
+    -fx-border-width: 2px;
+    -fx-margin-top: 100px;
+    -fx-margin-bottom: 100px;
+    -fx-border-color:#000000;
+}
+
+#typeZero{
+    -fx-background-color: #feeddb;
+}
+#typeOne{
+    -fx-background-color: #fec689;
+}
+#typeTwo{
+    -fx-background-color: #feaf5a;
+}
+#typeThree{
+    -fx-background-color: #fe982b;
+}
+#typeFour{
+    -fx-background-color: #fe8d14;
+}
+#typeFive{
+    -fx-background-color: #e47e12;
+}
+#typeSix{
+    -fx-background-color: #b1620e;
+}
+#typeSeven{
+    -fx-background-color: #6A3A08;
+}
+
+#typeZero:hover, #typeOne:hover, #typeTwo:hover, #typeThree:hover, #typeFour:hover, #typeFive:hover, #typeSix:hover,#typeSeven:hover {
+  -fx-effect: dropshadow(one-pass-box, grey , 12, 0.0, 4, 6);
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";    
+    -fx-padding :0.15em 0.0;
+}
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";    
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color :#b1620e;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :#fe8d14;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}

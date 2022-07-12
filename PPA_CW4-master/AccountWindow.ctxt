@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=AccountWindow
+comment0.text=\r\n\ Write\ a\ description\ of\ JavaFX\ class\ AccountWindow\ here.\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\r\n\ @version\ 04-03-2019\r\n
+comment1.params=input
+comment1.target=AccountWindow(Input)
+comment2.params=
+comment2.target=javafx.scene.Scene\ getScene()
+comment3.params=
+comment3.target=void\ initial()
+comment4.params=
+comment4.target=void\ setAccountInfo()
+comment5.params=
+comment5.target=void\ createRecommendPane()
+comment5.text=\r\n\ Create\ the\ recommendations\ pane\ which\ will\ display\r\n\ recommended\ properties\ based\ on\ what\ the\ user\ has\ previosly\r\n\ viewed.\ \r\n\ @return\ \ \ \ the\ sum\ of\ x\ and\ y\r\n
+comment6.params=currentProp\ infoBox\ i\ propertySet
+comment6.target=void\ AddEachProperty(AirbnbListing,\ javafx.scene.layout.GridPane,\ int,\ java.util.List)
+comment6.text=\r\n\ Add\ each\ property\ to\ the\ scroll\ pane.\ Display\ each\r\n\ property's\ name,\ borough\ and\ price\r\n\ @param\ \ currentProp\r\n\ @param\ infobox\r\n\ @param\ i\ is\ the\ index\ of\ the\ property\ from\ the\ list\r\n\ @param\ propertySet\ is\ the\ set\ of\ recommended\ properties\r\n\ @param\ currentProp\ the\ current\ property\ to\ add\r\n
+comment7.params=property\ list
+comment7.target=void\ viewIndivProperty(AirbnbListing,\ java.util.List)
+comment7.text=\r\n\ load\ individual\ properties\ if\ a\ property\ is\ clicked\ on\r\n\ @param\ property\ is\ the\ property\ the\ user\ wants\ to\ see\r\n
+numComments=8

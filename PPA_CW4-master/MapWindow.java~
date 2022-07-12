@@ -1,0 +1,479 @@
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.control.Tooltip;
+import java.time.temporal.ChronoUnit;
+import javafx.util.Callback;
+import java.time.*;
+import javafx.geometry.HPos;
+import javafx.scene.shape.Polygon;
+import java.util.*;
+import java.util.Collections;
+import javafx.scene.control.Alert.AlertType;
+import javafx.event.*;
+import java.io.IOException;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
+/**
+ * Write a description of JavaFX class MainWindow here.
+ *
+ * @author Faith Ong, Hana Mizukami, Sadiyah Khanam, Zeineb Bouchamaoui
+ * @version 04-03-2019
+ */
+public class MapWindow extends Application
+{
+    private MapLoader mapLoader = new MapLoader();
+    private Button goBtn;
+    private DatePicker checkInDatePicker;
+    private DatePicker checkOutDatePicker;
+    private long noOfDays = 5;
+    private List<String> btnNames = new ArrayList<>();
+    private static Integer min;
+    private static Integer max;
+    private Stage stage;
+    private boolean valid = false;
+    private ChoiceBox<Integer> toCB= new ChoiceBox<>();
+    private ChoiceBox<Integer> fromCB= new ChoiceBox<>();
+    @Override
+    public void start(Stage stage) throws Exception
+    {
+        this.stage = stage;
+        // Create the root pane
+        GridPane pane = new GridPane();
+        pane.setMinSize(650, 550);
+
+        mapLoader.createProperties();
+        mapLoader.createBoroughsMap();
+
+        createTopPane(pane);
+        createMiddlePane(pane);
+        createKeyPane(pane);
+        createBottomPane(pane);
+
+        // JavaFX must have a Scene (window content) inside a Stage (window)
+        Scene scene = new Scene(pane, 833,625);
+        scene.getStylesheets().add("MapDesign.css");
+
+        stage.setTitle("Airbnb GUI");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();// Show the Stage (window)
+    }
+
+    /**
+     * Create the top pane and add all its component
+     * @param  pane the root pane to add the top pane to
+     */
+    public void createTopPane(GridPane pane)
+    {
+        // Create the top pane
+        GridPane TOPpane = new GridPane();
+        TOPpane.setMinSize(650,80);
+        TOPpane.getStyleClass().add("pane");
+        TOPpane.setPadding(new Insets(0,10,0,10));
+
+        //create labels
+        Label fromLabel = new Label("From:");
+        Label toLabel = new Label("To:");
+        toLabel.setId("forwardBtn");
+        fromLabel.setId("backBtn");
+        goBtn = new Button("Search");
+
+        //Create the two choice boxes
+        ChoiceBox<Integer> toCB = new ChoiceBox();
+        toCB.getItems().addAll(0, 100, 250, 500, 1000, 2000, 3000, 4000, 5000, 6000);
+        ChoiceBox<Integer> fromCB = new ChoiceBox();
+        fromCB.getItems().addAll(0, 100, 250, 500, 1000, 2000, 3000, 4000, 5000, 6000);
+        //Create the alert box that appears when the to and from values are invalid.
+        Alert alert = new Alert(AlertType.ERROR, "The values selected are invalid !");
+        //Listens to changes to the "to" dropBox selected value.
+        toCB.getSelectionModel().selectedIndexProperty().addListener(new
+            ChangeListener<Number>(){
+                public void changed(ObservableValue ov, Number value, Number new_value){
+                    max = toCB.getItems().get((Integer) new_value);
+                    System.out.println(max);
+                    if(max !=null && min !=null && min > max){
+                        Optional<ButtonType> result = alert.showAndWait();
+                        valid = false;
+                    }
+                    else if(max != null && min != null){ valid = true;
+                    }}
+            }  );
+
+        //Listens to changes to the "from" dropBox selected value.
+        fromCB.getSelectionModel().selectedIndexProperty().addListener(new
+            ChangeListener<Number>(){
+                public void changed(ObservableValue ov, Number value, Number new_value){
+                    min = fromCB.getItems().get((Integer) new_value);
+                    if(max !=null && min !=null && min > max){
+                        Optional<ButtonType> result = alert.showAndWait();
+                        valid = false;
+                    }
+                    else if(max !=null && min !=null) {valid = true;}
+                }
+            }  );
+
+        //Add the labels and choice boxes to the top pane.
+        VBox box = new VBox();
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.add(fromLabel, 1, 0);
+        gridPane.add(fromCB, 4, 0);
+        gridPane.add(toLabel, 7, 0);
+        gridPane.add(toCB, 10, 0);
+        gridPane.add(goBtn,54 ,0);
+        box.getChildren().add(gridPane);
+        TOPpane.add(box, 0, 1);
+
+        pane.add(TOPpane, 0, 0); //add it to the root pane
+        timeUI(TOPpane);
+    }
+
+    /** Create the middle pane and add all its components
+     *
+     * @param  pane the root pane to add the top pane to
+     */
+    public void createMiddlePane(GridPane pane){
+        // Create the middle pane
+        Pane MIDDLEpane = new Pane();
+        MIDDLEpane.setMinSize(650, 450);
+        MIDDLEpane.getStyleClass().add("pane");
+        Tooltip tooltip = new Tooltip("Click on a borough to view the properties available.");
+        Tooltip.install(pane, tooltip);
+
+        pane.add(MIDDLEpane, 0, 1); // add it to the root pane
+        goBtn.setOnAction(event -> {
+                if(mapLoader.canSearch(min, max, noOfDays)){
+                    mapLoader.countProperties(min, max,  noOfDays);
+                    displayButtons(MIDDLEpane);
+                }else{
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please choose a valid date range");
+                    alert.showAndWait();}});
+    }
+
+    /** Create the bottom pane and add all its components
+     *
+     * @param  pane the root pane to add the top pane to
+     */
+    public void createBottomPane(GridPane pane){
+        // Create the bottom pane
+        GridPane BOTTOMpane = new GridPane();
+        BOTTOMpane.setMinSize(650, 33);
+        BOTTOMpane.getStyleClass().add("pane");
+        BOTTOMpane.setPadding(new Insets(0,10,0,10));
+
+        //Create a spacer pane
+        Pane spacer = new Pane();
+        spacer.setMinSize(650, 33);
+
+        //Create the next and forward buttons
+        Button nextButton = new Button(">");
+        Button backButton = new Button("<");
+        backButton.setMinSize(70, 10);
+        nextButton.setMinSize(70, 10);
+
+        nextButton.setOnAction(this::nextPanel);
+        backButton.setOnAction(this::previousPanel);
+
+        //Add the buttons to the bottom pane.
+        BOTTOMpane.add(backButton, 0, 0);
+        BOTTOMpane.add(spacer, 1, 0);
+        BOTTOMpane.add(nextButton, 2, 0);
+
+        pane.add(BOTTOMpane, 0, 3); // add it to the root pane
+    }
+
+    /** Create the third pane which holds the map key and add all its components
+     *
+     * @param  pane the root pane to add the top pane to
+     */
+    public void createKeyPane(GridPane pane){
+        // Create the pane for the key box
+        HBox KEYpane = new HBox();
+        //KEYpane.setHgap(30);
+        KEYpane.setSpacing(40);
+        KEYpane.setAlignment(Pos.CENTER);
+        KEYpane.setMinSize(650, 60);
+        KEYpane.getStyleClass().add("pane");
+
+        // create labels for the key and their colours
+        Label keyLabel = new Label(" KEY:  ");
+        keyLabel.setId("keyLbl");
+        Label keyOne = new Label("<=100");
+        Label oneColour = new Label("         ");
+        oneColour.setId("label1");
+        VBox box1 = new VBox();
+        box1.setAlignment(Pos.CENTER);
+        box1.getChildren().addAll(keyOne, oneColour);
+        Label keyTwo = new Label("100 to 300");
+        Label twoColour = new Label("         ");
+        twoColour.setId("label2");
+        VBox box2 = new VBox();
+        box2.setAlignment(Pos.CENTER);
+        box2.getChildren().addAll(keyTwo, twoColour);
+        Label keyThree = new Label("300 to 500");
+        Label threeColour = new Label("         ");
+        threeColour.setId("label3");
+        VBox box3 = new VBox();
+        box3.setAlignment(Pos.CENTER);
+        box3.getChildren().addAll(keyThree, threeColour);
+        Label keyFour = new Label("500 to 700");
+        Label fourColour = new Label("         ");
+        fourColour.setId("label4");
+        VBox box4 = new VBox();
+        box4.setAlignment(Pos.CENTER);
+        box4.getChildren().addAll(keyFour, fourColour);
+        Label keyFive = new Label("700 to 900");
+        Label fiveColour = new Label("         ");
+        fiveColour.setId("label5");
+        VBox box5 = new VBox();
+        box5.setAlignment(Pos.CENTER);
+        box5.getChildren().addAll(keyFive, fiveColour);
+        Label keySix = new Label(">=900");
+        Label sixColour = new Label("         ");
+        sixColour.setId("label6");
+        VBox box6 = new VBox();
+        box6.setAlignment(Pos.CENTER);
+        box6.getChildren().addAll(keySix, sixColour);
+
+        KEYpane.getChildren().addAll(keyLabel, box1, box2, box3, box4, box5, box6);
+
+        pane.add(KEYpane, 0, 2); //add it to the root pane
+    }
+
+    /**
+     * Display the date picker for the check in and check
+     * out dates. Calculate the total number of days the customer
+     * is staying.
+     * Code help from: https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/date-picker.htm
+     * @param  TOPpnae add the date pickers to the GUI
+     */
+    public void timeUI(GridPane TOPpane)
+    {
+        VBox vbox = new VBox(20);
+        vbox.setStyle("-fx-padding: 10;");
+        checkInDatePicker = new DatePicker();
+        checkOutDatePicker = new DatePicker(); //create date pickers to store the check in and check out dates
+        checkInDatePicker.setValue(LocalDate.now());
+        final Callback<DatePicker, DateCell> dayCellFactory =
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item.isBefore(checkInDatePicker.getValue().plusDays(1))) {
+                                setDisable(true); //stop user from picking a check out date that is before the check in date
+                                setStyle("-fx-background-color: #ffc0cb;");
+                            }
+                            noOfDays = ChronoUnit.DAYS.between(checkInDatePicker.getValue(), checkOutDatePicker.getValue());// calculate total number of days
+                        }
+                    };
+                }
+            };
+        checkOutDatePicker.setDayCellFactory(dayCellFactory);
+        checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        Label checkInlabel = new Label("Check-In Date: ");
+        gridPane.add(checkInlabel, 0, 0);
+        GridPane.setHalignment(checkInlabel, HPos.LEFT);
+        gridPane.add(checkInDatePicker, 1, 0);
+        Label checkOutlabel = new Label("Check-Out Date: ");
+        gridPane.add(checkOutlabel, 2, 0);
+        GridPane.setHalignment(checkOutlabel, HPos.LEFT);
+        gridPane.add(checkOutDatePicker, 3, 0); // store the date pickers and labels in a gridPane
+        vbox.getChildren().add(gridPane);
+        TOPpane.add(vbox, 0, 0);  //add the gridPane to the main GUI
+    }
+
+    /**
+     * Retrieve each button from the hashmap and add it to the pane to be
+     * displayed. Add a shadow effect if the mouse hovers over the button.
+     *
+     * @param  pane the pane the buttons are added to to be displayed
+     */
+    public void displayButtons(Pane middlePane)
+    {
+        btnNames.clear();
+        Collections.addAll(btnNames, "ENFI", "BARN", "HRGY", "WALT", "HRRW", "BREN", "CAMD", "ISLI",
+            "HACK", "REDB", "HAVE", "HILL", "EALI", "KENS", "WSTM", "TOWH","NEWH", "BARK", "HOUN",
+            "HAMM", "WAND", "CITY", "GWCH", "BEXL", "RICH", "MERT", "LAMB", "STHW", "LEWS", "KING", "SUTT",
+            "CROY", "BROM");
+        for(int i=0; i<btnNames.size(); i++){  //iterate through hashmap to get buttons
+            String btnName = btnNames.get(i);
+            Button btn = new Button(btnNames.get(i));
+            btnIDs(btnNames.get(i), btn);
+            btnStructure(btn, i);
+            btn.setOnAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        try {
+                            GridPane root = new GridPane();
+                            root.setMinSize(800, 800);
+                            Button favourite = new Button("Favourite this borough");
+                            //favourite.SetOnAction(this::boroughCount);
+                            root.add(favourite, 0, 4);
+                            Stage stage = new Stage();
+                            stage.setTitle(mapLoader.findBorough(btnName));
+                            stage.setScene(new Scene(root, 625, 500));
+                            stage.setResizable(false);
+                            stage.show(); // Show the Stage (window)
+                            // Hide this current window (if this is what you want)
+                            //((Node)(event.getSource())).getScene().getWindow().hide();
+                            //FAITH HERE
+
+                        }
+                        catch (Exception e) {
+                            System.out.println("Exception occured");
+                        }
+                    }
+                });
+            middlePane.getChildren().add(btn); //add the button the pane to be displayed
+        }
+    }
+
+    /**
+     * Give each borough an ID corresponding to the number
+     * of properties it has available. This is used to change its
+     * tile's colour.
+     */
+    public void btnIDs(String btnName, Button btn)
+    {
+        int value = mapLoader.getCount(btnName);
+        if(value >=100 && value <300){
+            btn.setId("typeTwo");
+        }
+        else if(value>=300 && value <500){
+            btn.setId("typeThree");
+        }
+        else if(value>=500 && value<700){
+            btn.setId("typeFour");
+        }
+        else if(value >=700 && value<900){
+            btn.setId("typeFive");
+        }
+        else if(value>=900){
+            btn.setId("typeSix");
+        }
+        else{
+            btn.setId("typeOne");
+        }
+    }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public void btnStructure(Button btn, int i)
+    {
+        Polygon hexagon = new Polygon(100.0, 0.0,130.0, 20.0,130.0,
+                50.0,100.0, 70.0,70.0,
+                50.0,70.0, 20.0);
+        btn.setShape(hexagon);
+        btn.setMinSize(70, 70);
+        if(i==0){
+            btn.setLayoutX(373);
+            btn.setLayoutY(5.0);
+        }
+        if (i>0 && i<4){
+            double initialXCoordinate = 264;
+            for(int index = 2; index <=i ; index++){
+                initialXCoordinate += 72;
+            }
+            btn.setLayoutX(initialXCoordinate);
+            btn.setLayoutY(58.0);
+        }
+        if (i>=4 && i<11){
+            double initialXCoordinate= 156;
+            for(int index = 5; index <=i ; index++){
+                initialXCoordinate += 72;
+            }
+            btn.setLayoutX(initialXCoordinate);
+            btn.setLayoutY(111.0);
+            initialXCoordinate+= 72;
+        }
+        if (i>=11 && i<18){
+            double initialXCoordinate= 120;
+            for(int index = 12; index <=i ; index++){
+                initialXCoordinate += 72;
+            }
+            btn.setLayoutX(initialXCoordinate);
+            btn.setLayoutY(164.0);
+            initialXCoordinate += 72;
+        }
+        if (i>=18 && i<24){
+            double initialXCoordinate= 156;
+            for(int index = 19; index <=i ; index++){
+                initialXCoordinate += 72;
+            }
+            btn.setLayoutX(initialXCoordinate);
+            btn.setLayoutY(217.0);
+            initialXCoordinate+= 72;
+        }
+        if (i>=24 && i<29){
+            double initialXCoordinate= 192;
+            for(int index = 25; index <=i ; index++){
+                initialXCoordinate += 72;
+            }
+            btn.setLayoutX(initialXCoordinate);
+            btn.setLayoutY(270.0);
+            initialXCoordinate+= 72;
+        }
+        if (i>=29 && i<33){
+            double initialXCoordinate= 228;
+            for(int index = 30; index <=i ; index++){
+                initialXCoordinate += 72;
+            }
+            btn.setLayoutX(initialXCoordinate);
+            btn.setLayoutY(323.0);
+            initialXCoordinate+= 72;
+        }
+    }
+
+    private void nextPanel(ActionEvent event){
+
+    }
+
+    private void previousPanel(ActionEvent event){
+        try{
+            new MainWindow().start(stage);
+        }
+        catch(Exception e){
+        };
+    }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public static void setToValue(int to)
+    {
+        max = to;
+    }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public static void setFromValue(int from)
+    {
+        min = from;
+    }
+}

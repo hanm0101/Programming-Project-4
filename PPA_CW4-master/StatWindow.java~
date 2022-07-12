@@ -1,0 +1,127 @@
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.scene.control.ChoiceBox;
+import javafx.geometry.Pos;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import java.util.Optional;
+import javafx.scene.control.ButtonType;
+import javafx.geometry.Orientation;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+/**
+ * Write a description of JavaFX class MainWindow here.
+ *
+ * @author Faith Ong, Hana Mizukami, Sadiyah Khanam, Zeineb Bouchamaoui
+ * @version 04-03-2019
+ */
+public class StatWindow extends Application
+{
+    private static Integer max;
+    private static Integer min;
+    private ChoiceBox<Integer> toCB= new ChoiceBox<>();
+    private ChoiceBox<Integer> fromCB= new ChoiceBox<>();
+    private boolean valid = false;
+    private Stage stage;
+    private MapLoader mapLoader;
+
+    @Override
+    public void start(Stage statStage) throws Exception
+    {
+        this.stage = stage;
+        // Create the root pane
+        ScrollPane pane = new ScrollPane();
+        pane.setMinSize(410, 300);
+        GridPane gridPane = new GridPane();
+        gridPane.setMinSize(400, 300);
+
+        mapLoader.createProperties();
+        mapLoader.createBoroughsMap();
+        
+        createTopPane(gridPane);
+        // createMiddlePane(pane);
+        // createKeyPane(pane);
+        // createBottomPane(pane);
+
+        // JavaFX must have a Scene (window content) inside a Stage (window)
+        Scene statScene = new Scene(pane, 400, 300);
+        statScene.getStylesheets().add("stat.css");
+        statStage.setTitle("Statistics");
+        statStage.setScene(statScene);
+        statStage.setResizable(true);
+        // Show the Stage (window)
+        statStage.show();
+
+        
+
+        //Listens to changes to the "from" dropBox selected value. 
+        fromCB.getSelectionModel().selectedIndexProperty().addListener(new 
+            ChangeListener<Number>(){
+                public void changed(ObservableValue ov, Number value, Number new_value){
+                    from = fromCB.getItems().get((Integer) new_value);
+                    if(to !=null && from !=null && from > to){
+                        Optional<ButtonType> result = alert.showAndWait();
+                        valid = false;
+                    }
+                    else if(to !=null && from !=null) valid = true;
+                }
+            }  );  
+
+        //nextButton.setOnAction(this::nextPanel);
+        //backButton.setOnAction(this::previousPanel);
+    }
+    
+    private void createTopPane(GridPane pane){
+        TilePane TopPane = new TilePane();
+        TopPane.setMinSize(800, 35);
+        TopPane.getStyleClass().add("pane");
+        TopPane.setPadding(new Insets(1, 5, 1, 1));
+    }
+    
+    private void nextPanel(ActionEvent event){
+        
+    }
+
+    private void previousPanel(ActionEvent event){
+        try{
+            new MainWindow().start(stage);
+        }
+        catch(Exception e){
+        };
+    }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public static void setToValue(int to)
+    {
+        max = to;
+    }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public static void setFromValue(int from)
+    {
+        min = from;
+    }
+}
+

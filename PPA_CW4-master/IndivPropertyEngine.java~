@@ -1,0 +1,69 @@
+import java.util.*;
+/**
+ * Write a description of class IndivPropertyEngine here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class IndivPropertyEngine
+{
+    private List<AirbnbListing> boroughListings;
+    private AirbnbListing current;
+    private String username = "Ariane";
+    private StatData statData;
+    private DataAccount dataAccount;
+    
+    public IndivPropertyEngine(List<AirbnbListing> boroughListings){
+        this.boroughListings = boroughListings; 
+        statData = new StatData();
+        dataAccount = new DataAccount();
+
+    }
+    
+    public AirbnbListing getNextProperty(){
+        int currentIndex = boroughListings.indexOf(current);
+        try{
+            //current index is now the next index in the array list. If current index was the last, wrap around to first index
+            currentIndex = (currentIndex+1) % boroughListings.size();
+            current = boroughListings.get(currentIndex);
+            //update property counter
+            statData.updatePropertyCount(current.getId());
+            
+        }
+        catch(Exception e){
+        };
+        return null;
+    }
+
+    public AirbnbListing getPrevProperty(){
+        int currentIndex = boroughListings.indexOf(current);
+        try{
+            if(currentIndex ==0)
+                currentIndex= boroughListings.size()-1;
+            else
+                currentIndex--;
+            current = boroughListings.get(currentIndex);
+            statData.updatePropertyCount(current.getId());
+            return current;
+        }
+        catch(Exception e){
+            //what put here?
+            
+        };
+        return null;
+    }
+    
+    public void toggleFavouriteProp(){
+        //if borough is not already favourited, make it a favourite
+        if(!dataAccount.getFavoriteProperty(username, current.getId())){
+            dataAccount.addFavoriteProp(username, current.getId());
+        }
+        else{
+            dataAccount.removeFavoriteProp(username, current.getId());
+        }
+    }
+    
+    public boolean isFavoriteProperty(){
+        return dataAccount.getFavoriteProperty(username, current.getId());
+    }
+}

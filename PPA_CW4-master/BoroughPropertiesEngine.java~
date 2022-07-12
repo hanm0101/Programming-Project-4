@@ -1,0 +1,137 @@
+import java.util.*;
+/**
+ * Write a description of class boroughPropertiesLoader here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class BoroughPropertiesEngine
+{
+    private String neighbourhood;
+    private AirbnbDataLoader loader;
+    private SortingAlgorithms sorter; 
+    //all the properties in the chosen borough
+    private List<AirbnbListing> listings;
+    private final String NAME = "Name";
+    private final String HOST_NAME = "Host name";
+    private final String NUMBER_OF_REVIEWS = "Number of reviews";
+    private final String PRICE = "Price of property";
+    private final String MIN_NIGHTS = "Minimum number of nights";
+    private DataAccount dataAccount;
+    //user's details
+    private static String username; //HOW TO CONNECT
+    private static boolean loggedIn = true; //HOW TO GET THESE VALUES
+    
+    public BoroughPropertiesEngine(String neighbourhood){
+        this.neighbourhood = neighbourhood;
+        loader = new AirbnbDataLoader();
+        sorter = new SortingAlgorithms();
+        listings = new ArrayList<>();
+    }
+    
+    /**
+     * Loads all the listings from the Database and filters them.
+     * Fills listings with all the properties in the chosen neighbourhood.
+     */
+    public void matchBoroughAndLoad(){
+        List<AirbnbListing> allListings = loader.load();
+        //List<AirbnbListing> filtered = new ArrayList<>();
+        //if listing's neighbourhood matches our chosen neighbourhood, add to the listings List
+        allListings.stream().filter(l -> neighbourhood.equals(l.getNeighbourhood()))
+        .forEach(l-> listings.add(l));
+    }
+    
+    public List<AirbnbListing> getListings(){
+        return listings; 
+    }
+    
+    public List<AirbnbListing> sortBy(String what){
+        boolean sortNumbers = true; //default to sort numbers
+        boolean sortNumbersAsc = true; //default to sort numbers in ascending order
+        HashMap<AirbnbListing, Integer> numbers = new HashMap<>();
+        HashMap<AirbnbListing, String> names = new HashMap<>();
+        switch(what){
+            case NUMBER_OF_REVIEWS: numbers = byNumberOfReviews(numbers);
+            sortNumbersAsc = false; //sort in descending order
+            break;
+            case HOST_NAME:
+            sortNumbers = false; //we are sorting characters not numbers
+            names = byHostName(names);
+            break;
+            case PRICE: numbers = byPrice(numbers);
+            break;
+            case MIN_NIGHTS: numbers = byMinNights(numbers);
+            break;
+        }
+    
+        if(sortNumbers)
+            if(sortNumbersAsc){
+                return sorter.sortNumbersAsc(numbers.entrySet());
+            }
+            else{
+                return sorter.sortNumbersDesc(numbers.entrySet());
+            }
+        else
+            return sorter.sortAlphabetical(names.entrySet());
+    
+    }
+
+    //produces a hashmap of the prices and the property they come from
+    private HashMap<AirbnbListing, Integer> byPrice(HashMap<AirbnbListing, Integer> map){
+        listings.stream().forEach(l-> map.put(l,l.getPrice()));
+        return map;
+    }
+
+    private HashMap<AirbnbListing, Integer> byNumberOfReviews(HashMap<AirbnbListing, Integer> map){
+        listings.stream().forEach(l-> map.put(l,l.getNumberOfReviews()));
+        return map;
+    }
+
+    private HashMap<AirbnbListing, String> byHostName(HashMap<AirbnbListing, String> map){
+        listings.stream().forEach(l-> map.put(l, l.getHost_name()));
+        return map;
+    }
+
+    private HashMap<AirbnbListing, Integer> byMinNights(HashMap<AirbnbListing, Integer> map){
+        listings.stream().forEach(l-> map.put(l,l.getMinimumNights()));
+        return map;
+    }
+    
+    public void toggleFavouriteBorough(){
+        //if borough is not already favourited, make it a favourite
+        if(!dataAccount.getFavoriteBorough(username, neighbourhood)){
+            dataAccount.addFavoriteBor(username, neighbourhood);
+        }
+        else{
+            dataAccount.removeFavoriteBor(username);
+        }
+    }
+    
+    public boolean isFavoriteBorough(){
+        return dataAccount.getFavoriteBorough(username, neighbourhood);
+    }
+    
+    public void loadBorough(String borough){
+        neighbourhood = borough;
+    }
+    
+    /**
+     * intialises the user's username for this object window
+     * @param Username user's username
+     */
+    public static void setUserName(String Username){
+        username = Username;
+    }
+    
+    /**
+     * set's whether the user is logged in 
+     * @param isLoggedIn if logged in, true. else, false
+     */
+    public static void setLoggedIn(boolean isLoggedIn){
+        loggedIn = isLoggedIn;
+    }
+    
+    public boolean getLoggedIn(){
+        
+    }
+}

@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=SortingAlgorithms
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ SortingAlgorithms\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=set
+comment1.target=java.util.List\ sortNumbersAsc(java.util.Set)
+comment1.text=\r\n\ taken\ from\ this\ website\:\r\n\ https\://www.javacodegeeks.com/2017/09/java-8-sorting-hashmap-values-ascending-descending-order.html\r\n
+comment2.params=set
+comment2.target=java.util.List\ sortNumbersDesc(java.util.Set)
+comment2.text=\r\n\ taken\ from\ this\ website\:\r\n\ https\://www.javacodegeeks.com/2017/09/java-8-sorting-hashmap-values-ascending-descending-order.html\r\n
+comment3.params=set
+comment3.target=java.util.List\ sortDoubleDesc(java.util.Set)
+comment3.text=\r\n\ taken\ from\ this\ website\:\r\n\ https\://www.javacodegeeks.com/2017/09/java-8-sorting-hashmap-values-ascending-descending-order.html\r\n
+comment4.params=set
+comment4.target=java.util.List\ sortAlphabetical(java.util.Set)
+comment4.text=\r\n\ taken\ from\ this\ website\:\r\n\ https\://www.javacodegeeks.com/2017/09/java-8-sorting-hashmap-values-ascending-descending-order.html\r\n
+numComments=5

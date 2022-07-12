@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=PropertyTypesBarChartLoader
+comment0.text=\r\n\ \ Backend\ for\ the\ PropertyTypesBarChart\ graph\r\n\ \ For\ all\ properties\ within\ the\ price\ range,\ sorts\ into\ their\ different\ boroughs\r\n\ \ and\ room\ types.\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\u0003\r\n\ @version\ 29.3.19\r\n
+comment1.params=
+comment1.target=PropertyTypesBarChartLoader()
+comment1.text=\r\n\ constructor.\ initialises\ all\ the\ hashmaps\ to\ stores\ counters\r\n\ also\ calculates\ the\ series\ data\ to\ be\ used\ in\ the\ graph\r\n
+comment2.params=
+comment2.target=void\ calculateSeriesData()
+comment2.text=\r\n\ Counts\ how\ many\ of\ each\ room\ type\ for\ each\ borough\r\n\ Stores\ the\ results\ in\ hashmaps\ mapping\ borough\ to\ count\ of\ properties\r\n
+comment3.params=to
+comment3.target=void\ setToValue(int)
+comment3.text=\r\n\ to\ pass\ in\ the\ upper\ bound\ of\ the\ price\ range\r\n\ @param\ to\ the\ upper\ bound\r\n
+comment4.params=from
+comment4.target=void\ setFromValue(int)
+comment4.text=\r\n\ to\ pass\ in\ the\ lower\ bound\ of\ the\ price\ range\r\n\ @param\ from\ the\ lower\ bound\r\n
+comment5.params=
+comment5.target=java.util.HashMap\ getPrivateRoomCount()
+comment5.text=\r\n\ @return\ privateRoomCount\ for\ each\ borough,\ the\ \#\ of\ properties\ of\ room\ type\ private\ room\r\n
+comment6.params=
+comment6.target=java.util.HashMap\ getSharedRoomCount()
+comment6.text=\r\n\ @return\ sharedRoomCount\ for\ each\ borough,\ the\ \#\ of\ properties\ of\ room\ type\ shared\ room\r\n
+comment7.params=
+comment7.target=java.util.HashMap\ getEntireHomeCount()
+comment7.text=\r\n\ @return\ entireHomeCount\ for\ each\ borough,\ the\ \#\ of\ properties\ of\ room\ type\ entire\ home/apt\r\n
+numComments=8

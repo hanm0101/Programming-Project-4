@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=AvgPropertyChart
+comment0.text=\r\n\ The\ GUI\ for\ the\ line\ graph\ which\ displays\r\n\ the\ average\ price\ of\ a\ property\ per\ borough\ for\ the\r\n\ minimum\ number\ of\ nights\ to\ stay.\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\r\n\ @version\ 04-03-2019\r\n
+comment1.params=stage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=max
+comment2.target=void\ setToValue(int)
+comment2.text=\r\n\ set\ the\ maximum\ to\ the\ passed\ in\ value\r\n\ @param\ \ to\ the\ value\ the\ max\ is\ set\ to\r\n
+comment3.params=min
+comment3.target=void\ setFromValue(int)
+comment3.text=\r\n\ set\ the\ minimum\ to\ the\ passed\ in\ value\r\n\ @param\ \ from\ the\ value\ the\ min\ is\ set\ to\r\n
+comment4.params=series
+comment4.target=void\ addData(javafx.scene.chart.XYChart.Series)
+comment4.text=\r\n\ Add\ the\ borough\ name\ and\ its\ average\ to\ the\ graph\r\n\ @param\ \ series\ the\ graph\ to\ add\ the\ data\ to\r\n
+comment5.params=
+comment5.target=void\ sharedPaneDesign()
+comment5.text=\r\nThe\ shared\ code\ both\ the\ large\ and\ small\r\ngraph\ use\r\n
+comment6.params=
+comment6.target=javafx.scene.layout.HBox\ getPane()
+comment6.text=\r\n\ Create\ the\ small\ graph\ for\ the\ stats\r\n\ class\r\n\ @return\ pane\ the\ pane\ containing\ the\ graph\r\n
+numComments=7

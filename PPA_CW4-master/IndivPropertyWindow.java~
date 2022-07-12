@@ -1,0 +1,166 @@
+import java.util.*;
+import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.geometry.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.event.*;
+import javafx.scene.input.*;
+import javafx.stage.*;
+import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.text.TextAlignment;
+
+/**
+ * Write a description of JavaFX class IndivPropertyWindow here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class IndivPropertyWindow extends Application
+{
+    private final String NAME = "Name";
+    private final String HOST_NAME = "Host name";
+    private final String NUMBER_OF_REVIEWS = "Number of reviews";
+    private final String PRICE = "Price of property";
+    private final String MIN_NIGHTS = "Minimum number of nights";
+    private AirbnbListing current;
+    private Stage stage;
+    private BorderPane root;
+    private GridPane bottomPane = new GridPane();
+    private AnchorPane content;
+    private IndivPropertyEngine engine;
+    
+    @Override
+    public void start(Stage stage) throws Exception
+    {
+        this.stage = stage;
+        content = setContent();
+
+        //create the menubar
+        MenuBar menubar = makeMenuBar();
+        createBottomPane();
+        // Create the root pane
+        root = new BorderPane();
+        root.setMinSize(500, 300);
+
+        root.setCenter(content);
+        root.setBottom(bottomPane);
+        root.setTop(menubar);
+
+        // JavaFX must have a Scene (window content) inside a Stage (window)
+        Scene scene = new Scene(root, 500,300);
+        scene.getStylesheets().add("Design.css");
+        stage.setTitle(current.getName()+" in " + current.getNeighbourhood() );
+        stage.setScene(scene);
+        stage.setResizable(false);
+        // Show the Stage (window)
+        stage.show();
+    }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    private void createBottomPane()
+    {
+        bottomPane.setMinSize(500, 33);
+        bottomPane.getStyleClass().add("pane");
+        bottomPane.setPadding(new Insets(0,10,0,10));
+        //Create the next and forward buttons
+        Button nextButton = new Button(">>>");
+        nextButton.setId("forwardButton");
+        Button backButton = new Button("<<<");
+        backButton.setId("backButton");
+        backButton.setMinSize(70, 10);
+        nextButton.setMinSize(70, 10);
+
+        //Create a spacer pane
+        Pane spacer = new Pane();
+        spacer.setMinSize(339, 33);
+
+        //Add the buttons to the bottom pane.
+        bottomPane.add(backButton, 0, 0);
+        bottomPane.add(spacer, 1, 0);
+        bottomPane.add(nextButton, 2, 0);
+
+        //next and back buttons respond to clicks
+        nextButton.setOnAction(e-> changePanel(true));
+        backButton.setOnAction(e-> changePanel(false));
+    }
+
+    private void changePanel(boolean getNextPanel){
+        //change the current property to the new property
+        if(getNextPanel){
+            current = engine.getNextProperty();
+        }
+        else{
+            engine.getPrevProperty();}
+        //update the vbox in the root layout node
+        root.getChildren().remove(content);
+        content = setContent();
+        root.setCenter(content);
+        stage.setTitle(current.getName()+" in " + current.getNeighbourhood() );
+    }
+
+    public void loadProperties(List<AirbnbListing> boroughListings, AirbnbListing currentListing){
+        engine = new IndivPropertyEngine(boroughListings);
+        current = currentListing;
+    }
+
+    private MenuBar makeMenuBar()
+    {
+        MenuBar menuBar = new MenuBar();
+        Menu optionsMenu = new Menu("Options");
+        menuBar.setId("menuBar");
+        CheckMenuItem toggleFavProperty = new CheckMenuItem("Set favourite property");
+        //only if a user is logged in can this menu item be seen <-
+        toggleFavProperty.setSelected(engine.isFavoriteProperty());
+        //^^^^^^^^^^^
+        toggleFavProperty.setOnAction(e-> engine.toggleFavouriteProp());
+        optionsMenu.getItems().addAll(toggleFavProperty);
+        menuBar.getMenus().addAll(optionsMenu);
+        return menuBar;
+    }
+
+    private AnchorPane setContent(){
+        AnchorPane  propBox = new AnchorPane ();
+        propBox.setMinSize(500, 200);
+        VBox infoBox = new VBox();
+        VBox priceBox = new VBox();
+
+        Label name = new Label(current.getName());
+        name.setId("propName");
+        Label borough = new Label("Borough: " + current.getNeighbourhood());
+        Label roomType = new Label("Room Type: " + current.getRoom_type());
+        Label numReviews = new Label("Number Of Reviews: " + current.getNumberOfReviews());
+        Label monthReviews = new Label("Reviews Per Month: " + current.getReviewsPerMonth());
+        Label lastReview = new Label("Last Review Date: " + current.getLastReview());
+        Label hostName = new Label("Host: " + current.getHost_name());
+        Label listHosting = new Label("Number Of Properties Host Has: " + current.getCalculatedHostListingsCount());
+        Label availability = new Label("Availability Out Of 365 Days: " + current.getAvailability365());
+        Label propID = new Label("Property ID: " + current.getId());
+        Label hostID = new Label("Host ID: " + current.getHost_id());
+        Label price = new Label("£" + current.getPrice());
+        Label priceInfo = new Label(" p/night");
+        Label spaceLbl = new Label(" ");
+        Label spaceLbl2 = new Label(" ");
+        Label hostLbl = new Label("Host Information:");
+        hostLbl.setId("hostInfo");
+        price.setId("propPrice");
+        priceBox.getChildren().addAll(price, priceInfo);
+        infoBox.getChildren().addAll(name,spaceLbl2,propID, borough,roomType,numReviews,spaceLbl,hostLbl, hostName, hostID, listHosting, priceBox);
+        propBox.getChildren().addAll(infoBox,priceBox);
+        propBox.setLeftAnchor(infoBox, 5.0);
+        propBox.setRightAnchor(priceBox, 5.0);
+        propBox.setId("propBox");
+
+        return propBox;
+    }
+
+    
+
+}

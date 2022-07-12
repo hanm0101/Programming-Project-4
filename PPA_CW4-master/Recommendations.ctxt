@@ -1,0 +1,31 @@
+#BlueJ class context
+comment0.target=Recommendations
+comment0.text=\r\n\ Generates\ a\ list\ of\ recommended\ properties\ based\ on\ the\ following\:\r\n\ the\ user's\ favourite\ boroughs,\r\n\ the\ user's\ most\ frequently\ searched\ price\ range/s\r\n\ the\ user's\ most\ frequently\ viewed\ room\ type\r\n\ the\ minimum\ nights\ of\ the\ most\ frequently\ viewed\ properties\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Recommendations()
+comment10.params=
+comment10.target=int[]\ getDesiredAvailabilityRange()
+comment11.params=newUsername
+comment11.target=void\ setUserName(java.lang.String)
+comment12.params=isLoggedIn
+comment12.target=void\ setLoggedIn(boolean)
+comment2.params=
+comment2.target=java.util.List\ getRecommendations()
+comment3.params=
+comment3.target=java.util.List\ filterProperties()
+comment3.text=\r\n\ @param\ needMoreRecommendations\ if\ there\ are\ less\ than\ 10\ recommendations\ after\ the\ first\ filtering\ process,\r\n\ input\ true,\ else\ needMoreRecommendations\ \=\ false\r\n
+comment4.params=
+comment4.target=void\ boroughFilter()
+comment4.text=\r\n\ If\ a\ property\ is\ not\ in\ one\ of\ the\ following,\ they\ will\ be\ shortlist\ out\ from\ the\ list\ of\ recommended\ properties\:\r\n\ 1.\ favourite\ borough\ 2.most\ viewed\ borough\ 3.searched\ borough\ 4.\ adjacent\ boroughs\ to\ the\ favourite/\ most\ viewed\ \r\n\ if\ property\ is\ in\ favourite\ borough\ ->\ score\ multiplier\ \=\ 1.0\r\n\ "\ in\ most\ viewed\ borough\ or\ searched\ borough\ ->\ multiplier\ \=\ 0.7\r\n\ "\ in\ adjacent\ borough\ ->\ multiplier\ \=\ 0.3\r\n
+comment5.params=
+comment5.target=void\ priceRangeFilter()
+comment6.params=
+comment6.target=int[]\ getRecPriceRange()
+comment7.params=
+comment7.target=void\ roomTypeFilter()
+comment7.text=\r\n\ each\ room\ type\ counter\ receives\r\n\ 3\ counts\ if\ present\ in\ favourite\ properties\r\n\ 2\ count\ if\ present\ in\ mostViewedProperties\r\n\ 1\ count\ if\ present\ in\ any\ other\ property\ in\ shortlist\ \r\n\ why?\ room\ types\ in\ favourites\ and\ in\ search\ results\ are\ more\r\n\ likely\ to\ be\ prefered\ by\ the\ user\r\n
+comment8.params=
+comment8.target=java.util.List\ getRoomTypePopularityRanking()
+comment9.params=
+comment9.target=void\ availabilityFilter()
+numComments=13

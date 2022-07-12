@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=PropertyTypesBarChart
+comment0.text=\r\n\ Displays\ the\ number\ of\ each\ room\ type\ in\ each\ borough\r\n\ in\ the\ form\ of\ a\ stacked\ bar\ chart\r\n\ y\ axis\ -\ number\ of\ properties\r\n\ x\ axis\ -\ borough\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\u0003\r\n\ @version\ 29.3.19\r\n
+comment1.params=stage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=max
+comment2.target=void\ setToValue(int)
+comment2.text=\r\n\ Set\ the\ max\ value\r\n
+comment3.params=min
+comment3.target=void\ setFromValue(int)
+comment3.text=\r\n\ Set\ the\ min\ value\r\n
+comment4.params=
+comment4.target=void\ sharedPaneDesign()
+comment4.text=\r\n\ The\ shared\ code\ for\ both\r\n\ the\ small\ and\ large\ bar\ chart\r\n
+comment5.params=
+comment5.target=javafx.scene.layout.HBox\ getPane()
+comment5.text=\r\n\ This\ returns\ the\ smaller\r\n\ version\ of\ the\ bar\ chart\ for\ the\ statGUI\r\n\ class\r\n\ @return\ \ pane\ the\ pane\ containing\ the\ chart\r\n
+numComments=6

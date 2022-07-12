@@ -1,0 +1,156 @@
+zimport java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.text.DecimalFormat;
+/**
+ * Write a description of class Stats here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class Stats
+{
+    // instance variables - replace the example below with your own
+    private AirbnbDataLoader dataLoader;
+    private ArrayList<AirbnbListing> listing ;
+    private HashMap<String, String> stats;
+    private ArrayList<String> stat;
+    private int numStat = 0;
+
+    /**
+     * Constructor for objects of class Stats
+     */
+    public Stats()
+    {
+        dataLoader = new AirbnbDataLoader();
+        stats = new HashMap<String, String>();
+        listing = dataLoader.load();
+        addStat();
+        averageReviews();
+        availableProperties();
+        homesAndAppartments();
+        mostExpensiveBorough();
+    }
+
+    /**
+     * @return the listing statistics.
+     */
+    public HashMap<String, String> getStats(){
+        return stats;
+    }
+
+    public void addStat(){
+        stat = new ArrayList<>();
+        stat.add("Average number of reviews");
+        stat.add("Number of available properties");
+        stat.add("Number of homes and appartments");
+        stat.add("The most expensive borough");
+    }
+
+    public String statName(){
+        return stat.get(numStat);
+    }
+
+    public String returnStatName(){
+        return stats.get(statName());
+    }
+
+    public void nextStat(){
+        if(numStat < stat.size()-1) numStat++;
+    }
+
+    public void previousStat(){
+        if(numStat >0) numStat--;
+    }
+
+    public int getStatSize(){
+        return stat.size();
+    }
+
+    /**
+     * Calculates the average number of reviews per properties.
+     */
+    private void averageReviews(){
+        Double propertiesReview = 0.0;
+        Iterator<AirbnbListing> listingIterator = listing.iterator();
+        while (listingIterator.hasNext()) {
+            propertiesReview += listingIterator.next().getNumberOfReviews();
+        }
+
+        Double averageReviews = propertiesReview /listing.size();
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        stats.put("Average number of reviews", df.format(averageReviews));
+    }
+
+    private void availableProperties(){
+        int availableProp = 0;
+        Iterator<AirbnbListing> listingIterator = listing.iterator();
+        while (listingIterator.hasNext()) {
+            if(listingIterator.next().getAvailability365() != 0){
+                availableProp++;
+            }
+        }
+
+        stats.put("Number of available properties", Integer.toString(availableProp));
+    }
+
+    private void homesAndAppartments(){
+        int homesAndAppartments = 0;
+        Iterator<AirbnbListing> listingIterator = listing.iterator();
+        while (listingIterator.hasNext()) {
+            if(!listingIterator.next().getRoom_type().equals("Private room")){
+                homesAndAppartments++;
+            }
+        }
+
+        stats.put("Number of homes and appartments", Integer.toString(homesAndAppartments));
+    }
+
+    private void mostExpensiveBorough(){
+        AirbnbListing airbnb = listing.get(0);
+        Double price = airbnb.getPrice()*(double)airbnb.getMinimumNights();
+        for(int i = 1; i < listing.size(); i++){
+            AirbnbListing tempAirbnb = listing.get(i);
+            Double tempPrice = tempAirbnb.getPrice()*(double)tempAirbnb.getMinimumNights();
+            if(tempPrice > price){
+                airbnb = tempAirbnb;
+                price = tempPrice;
+            }
+        }
+
+        String borough = airbnb.getNeighbourhood();
+        stats.put("The most expensive borough", borough);
+    }
+    
+    /**
+     * Calculates the average number of reviews per properties.
+     */
+    private void findDistance(){
+         Double distance = 0.0;
+         double curAltitude = 51.512592;
+         double curLongitude = -0.116500;
+         AirbnbListing airbnb = listing.get(0);
+         Iterator<AirbnbListing> listingIterator = listing.iterator();
+         for(int i = 1; i < listing.size(); i++){
+             distance = Math.sqrt(Math.pow((curAltitude - airbnb.getLatitude()), 2) + Math.pow((curLongitude - airbnb.getLongitude()), 2));
+             
+         }
+         // int[] distanceArray = new int[listing.size()];
+             // int minValue = distanceArray[0];
+             // for(int j=1;i<distanceArray.length;i++){
+                 // if(distanceArray[j] < minValue){
+                     // minValue = distanceArray[j];
+                    // }
+                // }
+         DecimalFormat df = new DecimalFormat("#.##");
+         stats.put("Distance", df.format(distance));
+    }
+    
+    // public static int getMinValue(int[] numbers){
+        // int minValue = numbers[0];
+        
+        // return minValue;
+    // }
+    
+}

@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=MapLoader
+comment0.text=\r\n\ The\ MapLoader\ does\ all\ the\ backend\ of\ the\ MapWindow\r\n\ class.\ It\ gets\ the\ data\ from\ the\ Airbnb\ class\ and\ returns\ ot\r\n\ back\ to\ the\ MapWindow\ to\ display.\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\r\n\ @version\ 04-03-2019\r\n
+comment1.params=
+comment1.target=MapLoader()
+comment1.text=\r\n\ \ \r\n
+comment2.params=
+comment2.target=void\ createProperties()
+comment2.text=\r\n\ Load\ data\ from\ CSV\ file\ and\ initally\ set\ how\ many\ properties\r\n\ there\ are\ available\ for\ each\ borough\ to\ zero.\r\n
+comment3.params=min\ max\ noOfDays
+comment3.target=boolean\ canSearch(int,\ int,\ long)
+comment3.text=\r\n\ Check\ if\ the\ map\ will\ be\ displayed\ by\ checking\r\n\ if\ the\ date\ range\ and\ price\ range\ are\ valid\r\n\r\n\ @param\ \ min\ stores\ the\ min\ price\r\n\ @param\ max\ stores\ the\ max\ price\r\n\ @param\ noOfDays\ no\ of\ days\ selected\r\n\ @return\ search\ true\ if\ the\ map\ can\ be\ displayed\r\n
+comment4.params=min\ max\ noOfDays
+comment4.target=void\ countProperties(int,\ int,\ long)
+comment4.text=\r\n\ Load\ data\ from\ CSV\ file\ and\ store\ a\ total\ of\ how\ many\ properties\r\n\ there\ are\ available\ for\ each\ borough\ which\ meet\ the\ date\ range\ and\ price\r\n\ requirements.\r\n\ @param\ \ min\ stores\ the\ min\ price\r\n\ @param\ max\ stores\ the\ max\ price\r\n\ @param\ noOfDays\ no\ of\ days\ selected\r\n
+comment5.params=btnName
+comment5.target=java.lang.String\ findBorough(java.lang.String)
+comment5.text=\r\n\ Find\ and\ return\ the\ borough's\ full\ name\r\n\ from\ being\ given\ the\ shortened\ name.\r\n\ @param\ btnName\ the\ shorted\ name\ of\ the\ borough\r\n\ @return\ the\ boroughs's\ full\ name\r\n
+comment6.params=btnName
+comment6.target=int\ getCount(java.lang.String)
+comment6.text=\r\n\ Find\ and\ return\ the\ borough's\ count\ from\ being\ given\ the\ shortened\ name.\r\n\ @param\ btnName\ the\ shorted\ name\ of\ the\ borough\r\n\ @return\ the\ boroughs's\ count\r\n
+comment7.params=
+comment7.target=void\ createBoroughsMap()
+comment7.text=\r\n\ Store\ every\ borough's\ name\ and\ its\ corresponding\ shortened\ name\ in\ a\ hashmap\r\n\r\n
+numComments=8

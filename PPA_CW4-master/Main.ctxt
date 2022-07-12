@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Main
+comment0.text=\r\n\ Main\ window\ to\ be\ opened.\ This\ controls\ the\ order\r\n\ of\ the\ next\ and\ previous\ panels\ to\ show.\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\r\n\ @version\ 04-03-2019\r\n
+comment1.params=stage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=
+comment2.target=void\ switchScenes()
+comment2.text=\r\n\ Sets\ the\ scene\ to\ show.\r\n
+comment3.params=
+comment3.target=void\ next()
+comment3.text=\r\n\ Increments\ the\ values\ of\ current\ and\ then\ switch\ the\ scenes.\r\n\ \r\n
+comment4.params=
+comment4.target=void\ previous()
+comment4.text=\r\n\ Decrements\ the\ values\ of\ current\ and\ then\ switch\ the\ scenes.\r\n
+numComments=5

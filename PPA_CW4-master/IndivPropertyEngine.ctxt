@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=IndivPropertyEngine
+comment0.text=\r\n\ Back\ end\ for\ the\ IndivPropertyWindow\ \r\n\ Gets\ the\ next\ and\ previous\ properties\ in\ the\ chosen\ borough\r\n\ Updates\ a\ property's\ 'favourited'\ status\ for\ a\ user\ in\ the\ database\r\n\r\n\ @author\ Faith\ Ong,\ Hana\ Mizukami,\ Sadiyah\ Khanam,\ Zeineb\ Bouchamaoui\u0003\r\n\ @version\ 29.3.19\r\n
+comment1.params=boroughListings\ currentListing
+comment1.target=IndivPropertyEngine(java.util.List,\ AirbnbListing)
+comment1.text=\r\n\ Constructor\r\n\ Initialises\ variables\r\n\ @param\ boroughListings\ list\ of\ properties\ in\ chosen\ borough\r\n\ @param\ currentListing\ current\ property\ being\ displayed\r\n
+comment2.params=
+comment2.target=AirbnbListing\ getNextProperty()
+comment2.text=\r\n\ gets\ the\ next\ property\ in\ the\ list\ to\ be\ displayed\r\n\ @return\ AirbnbListing\ next\ property\r\n
+comment3.params=
+comment3.target=AirbnbListing\ getPrevProperty()
+comment3.text=\r\n\ gets\ the\ previous\ property\ in\ the\ list\ to\ be\ displayed\r\n\ @return\ AirbnbListing\ previous\ property\r\n
+comment4.params=
+comment4.target=boolean\ toggleFavouriteProp()
+comment4.text=\r\n\ if\ the\ property\ is\ not\ already\ a\ favourite,\ make\ it\ one\ \r\n\ if\ the\ property\ is\ already\ a\ favourite,\ remove\ its\ 'favourite'\ status\r\n\ must\ update\ this\ in\ the\ database\ through\ DataAccount\r\n\ @return\ boolea\ whether\ the\ property\ is\ a\ favourite\ or\ not\ \r\n
+comment5.params=
+comment5.target=boolean\ isFavoriteProperty()
+comment5.text=\r\n\ @return\ boolean\ is\ the\ property\ a\ favourite?\ true\ if\ yes,\ false\ if\ no\r\n
+comment6.params=newInput
+comment6.target=void\ setInput(Input)
+comment6.text=\r\n\ intialises\ the\ user's\ username\ for\ this\ object\ window\r\n\ @param\ Username\ user's\ username\r\n
+comment7.params=
+comment7.target=Input\ getInput()
+comment7.text=\r\n\ Returns\ whether\ or\ not\ the\ user\ is\ logged\ into\ the\ system\r\n\ @return\ boolean\ true,\ if\ user\ is\ logged\ in,\ false\ if\ not\ logged\ in\r\n
+numComments=8

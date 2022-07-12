@@ -1,0 +1,112 @@
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.fxml.*;
+import javafx.fxml.FXMLLoader;
+import java.net.URL;
+import javafx.scene.layout.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ChoiceBox;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+/**
+ * Write a description of class StatViewer here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class StatViewer
+{
+    // instance variables - replace the example below with your own
+    private static Integer min;
+    private static Integer max;
+    private Integer to;
+    private Integer from;
+    private boolean valid = false;
+    private Alert alert = new Alert(AlertType.ERROR, "The values selected are invalid !");
+    
+    @FXML
+    private Label upperLeftLabel;
+    @FXML
+    private Label upperRightLabel;
+    @FXML
+    private Label lowerLeftLabel;
+    @FXML
+    private Label lowerRightLabel;
+    @FXML
+    private ChoiceBox<Integer> toCB= new ChoiceBox<>();
+    
+    @FXML
+    private ChoiceBox<Integer> fromCB= new ChoiceBox<>();
+    
+    @FXML
+    private void nextStat(ActionEvent event){
+        System.out.println("1");
+    }
+    
+    @FXML
+    private void previousStat(ActionEvent event){
+        System.out.println("1");
+    }
+    
+    private void redisplay(){
+        System.out.println("1");
+    }
+    
+    private void addValuesTo(){
+        toCB.getItems().addAll(0, 100, 250, 500, 1000, 2000, 3000, 4000, 5000, 6000);
+    }
+    
+    private void addValuesFrom(){
+        fromCB.getItems().addAll(0, 100, 250, 500, 1000, 2000, 3000, 4000, 5000, 6000);
+    }
+    
+    private void listenTo(){
+        //Listens to changes to the "to" dropBox selected value.
+        toCB.getSelectionModel().selectedIndexProperty().addListener(new 
+            ChangeListener<Number>(){
+                public void changed(ObservableValue ov, Number value, Number new_value){
+                    to = toCB.getItems().get((Integer) new_value);
+                    if(to !=null && from !=null && from > to){
+                        Optional<ButtonType> result = alert.showAndWait();
+                        valid = false;
+                    }
+                    else if(to !=null && from !=null) valid = true;
+                }
+            }  );  
+    }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public static void setToValue(int to)
+    {
+        max = to;
+    }
+    
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public static void setFromValue(int from)
+    {
+        min = from;
+    }
+}
